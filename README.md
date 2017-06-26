@@ -2,6 +2,8 @@
 
 [![build status](https://gitlab.com/mdyzma/twitter_follo/badges/master/build.svg)](https://gitlab.com/mdyzma/twitter_follo/commits/master) 
 [![coverage report](https://gitlab.com/mdyzma/twitter_follo/badges/master/coverage.svg)](https://gitlab.com/mdyzma/twitter_follo/commits/master)
+[![Documentation Status](https://readthedocs.org/projects/twitter-follo/badge/?version=latest)](http://twitter-follo.readthedocs.io/en/latest/?badge=latest)
+
 
 
 A Python app, which can display followers of the followers of account authorized via Twitter. Can be deployed to Heroku.
