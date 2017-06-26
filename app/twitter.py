@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, print_function
 import os.path
-import logging # TODO add logging to the programm
+# import logging # TODO add logging to the programm
 
 import tweepy
 try:
@@ -50,8 +50,6 @@ def main():
     api = tweepy.API(auth)
     me = api.get_user(id=3004355500)
     return me
-
-
 
 
 if __name__ == "__main__":

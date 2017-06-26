@@ -9,7 +9,7 @@ A Python app, which can display followers of the followers of account authorized
 Running Locally
 ---------------
 
-Make sure you have Python_ installed properly.  Also, install the Heroku_. ::
+Make sure you have Python_ installed properly.  Also, install the HerokuCLI_. ::
 
     $ git https://github.com/mdyzma/twitter_follo.git
     $ cd twitter_follo
@@ -48,7 +48,7 @@ For more information, see the documentation_.
 .. links
 
 .. _Python: http://install.python-guide.org
-.. _Heroku: https://toolbelt.heroku.com
+.. _HerokuCLI: https://toolbelt.heroku.com
 .. _documentation: http://twitter-follo.readthedocs.io/en/latest/?badge=latest
 
 

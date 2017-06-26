@@ -38,4 +38,4 @@ or
 
 For more information, see these articles:
 
-- [Twitter Followers](https://devcenter.heroku.com/categories/python)
+- [Twitter Followers](http://twitter-follo.readthedocs.io/en/latest/?badge=latest)
