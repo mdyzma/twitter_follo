@@ -1,6 +1,6 @@
 # Twitter followers followers
 
-[![build status](https://gitlab.com/mdyzma/twitter_follo/badges/master/build.svg)](https://gitlab.com/mdyzma/twitter_follo/commits/master) 
+[![Build Status](https://travis-ci.org/mdyzma/twitter_follo.svg?branch=master)](https://travis-ci.org/mdyzma/twitter_follo)
 [![coverage report](https://gitlab.com/mdyzma/twitter_follo/badges/master/coverage.svg)](https://gitlab.com/mdyzma/twitter_follo/commits/master)
 [![Documentation Status](https://readthedocs.org/projects/twitter-follo/badge/?version=latest)](http://twitter-follo.readthedocs.io/en/latest/?badge=latest)
 
