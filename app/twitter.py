@@ -1,18 +1,19 @@
 from __future__ import absolute_import, division, print_function
-import tweepy
+import os.path
 import logging # TODO add logging to the programm
+from dotenv import load_dotenv
+import tweepy
 
-from local_settings import (CONSUMER_API_KEY, CONSUMER_API_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-# TODO move to environment variables
+
+dotenv_path = os.path.abspath(os.path.join(os.path.dirname("."), 'local_settings.py'))
+envs = load_dotenv(dotenv_path)
+
+consumer_key = os.environ["CONSUMER_API_KEY"]
+consumer_secret = os.environ["CONSUMER_API_SECRET"]
+access_token = os.environ["ACCESS_TOKEN"]
+access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
 
-consumer_key = str(CONSUMER_API_KEY)
-consumer_secret = str(CONSUMER_API_SECRET)
-access_token = str(ACCESS_TOKEN)
-access_token_secret = str(ACCESS_TOKEN_SECRET)
-
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
 
 
 
@@ -40,11 +41,17 @@ def _print_report(user_obj, followers_list):
 
 
 def main():
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+
     api = tweepy.API(auth)
     me = api.get_user(id=3004355500)
-    me_followers = me.followers()
+    return me
 
-    _print_report(me, me_followers)
+
+
 
 if __name__ == "__main__":
-    main()
+    me = main()
+    me_followers = me.followers()
+    _print_report(me, me_followers)

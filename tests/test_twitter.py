@@ -1,23 +1,20 @@
 from __future__ import absolute_import, division, print_function
-
+import os.path
 import pytest
 import app.twitter
-from local_settings import *
+from dotenv import load_dotenv
 
+dotenv_path = os.path.abspath(os.path.join(os.path.pardir, "local_setup.py"))
+load_dotenv(dotenv_path)
+
+consumer_key = os.environ["CONSUMER_API_KEY"]
+consumer_secret = os.environ["CONSUMER_API_SECRET"]
+access_token = os.environ["ACCESS_TOKEN"]
+access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
 @pytest.fixture
 def me():
-    import tweepy
-
-    consumer_key = str(CONSUMER_API_KEY)
-    consumer_secret = str(CONSUMER_API_SECRET)
-    access_token = str(ACCESS_TOKEN)
-    access_token_secret = str(ACCESS_TOKEN_SECRET)
-
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_token_secret)
-    api = tweepy.API(auth)
-    me = api.get_user(id=3004355500)
+    me = app.twitter.main()
     return me
 
 
