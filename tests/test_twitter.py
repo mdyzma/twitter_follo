@@ -18,6 +18,7 @@ consumer_secret = os.environ["CONSUMER_API_SECRET"]
 access_token = os.environ["ACCESS_TOKEN"]
 access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
+
 @pytest.fixture
 def me():
     me = app.twitter.main()

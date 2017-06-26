@@ -11,7 +11,7 @@ Running Locally
 
 Make sure you have Python_ installed properly.  Also, install the Heroku_. ::
 
-    $ git clone https://gitlab.com/mdyzma/twitter_follo.git
+    $ git https://github.com/mdyzma/twitter_follo.git
     $ cd twitter_follo
 
     $ heroku local
