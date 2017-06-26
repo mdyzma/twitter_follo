@@ -1,17 +1,29 @@
+
+
 Twitter Followers
 =================
 
+================== =============
+**Last modified:** |today|
+================== =============
 
-.. image:: https://readthedocs.org/projects/twitter-follo/badge/?version=latest
-    :target: http://twitter-follo.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
-.. image:: https://travis-ci.org/mdyzma/twitter_follo.svg?branch=master
-    :target: https://travis-ci.org/mdyzma/twitter_follo
 
+|travis|  |docs|
+
+Application displaying second row followers on Twitter. Application uses Twitter REST API to connect with the page and
+download information necessary to build table.
+
+Page contents:
+--------------
 
 .. toctree::
     :maxdepth: 2
     :caption: Contents:
+
+    quickstart
+    contribution
+    api
+    license
 
 
 
@@ -23,3 +35,8 @@ Indices and tables
 * :ref:`search`
 
 
+.. |docs| image:: https://readthedocs.org/projects/twitter-follo/badge/?version=latest
+    :target: http://twitter-follo.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+.. |travis| image:: https://travis-ci.org/mdyzma/twitter_follo.svg?branch=master
+    :target: https://travis-ci.org/mdyzma/twitter_follo
