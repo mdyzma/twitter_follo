@@ -5,18 +5,17 @@ from dotenv import load_dotenv
 import tweepy
 
 
-dotenv_path = os.path.abspath(os.path.join(os.path.dirname("."), 'local_settings.py'))
-envs = load_dotenv(dotenv_path)
+try:
+    dotenv_path = os.path.abspath(os.path.join(os.path.dirname("."), 'local_settings.py'))
+    load_dotenv(dotenv_path)
+except FileNotFoundError:
+    pass
+
 
 consumer_key = os.environ["CONSUMER_API_KEY"]
 consumer_secret = os.environ["CONSUMER_API_SECRET"]
 access_token = os.environ["ACCESS_TOKEN"]
 access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
-
-
-
-
-
 
 
 # TODO api oAuth return

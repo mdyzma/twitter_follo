@@ -4,8 +4,11 @@ import pytest
 import app.twitter
 from dotenv import load_dotenv
 
-dotenv_path = os.path.abspath(os.path.join(os.path.pardir, "local_setup.py"))
-load_dotenv(dotenv_path)
+try:
+    dotenv_path = os.path.abspath(os.path.join(os.path.pardir, "local_setup.py"))
+    load_dotenv(dotenv_path)
+except FileNotFoundError:
+    pass
 
 consumer_key = os.environ["CONSUMER_API_KEY"]
 consumer_secret = os.environ["CONSUMER_API_SECRET"]
