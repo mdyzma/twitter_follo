@@ -2,7 +2,10 @@ from __future__ import absolute_import, division, print_function
 import os.path
 import pytest
 import app.twitter
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    pass
 
 try:
     dotenv_path = os.path.abspath(os.path.join(os.path.pardir, "local_setup.py"))

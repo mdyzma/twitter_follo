@@ -1,8 +1,12 @@
 from __future__ import absolute_import, division, print_function
 import os.path
 import logging # TODO add logging to the programm
-from dotenv import load_dotenv
+
 import tweepy
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    pass
 
 
 try:

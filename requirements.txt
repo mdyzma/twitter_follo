@@ -1,9 +1,9 @@
 tweepy==3.5.0
+wheel==0.29.0
 six==1.10.0
 pytest==3.1.2
 pytest-cov==2.3.1
 pytest-runner==2.11.1
 coverage==4.3.4
 requests==2.14.2
-python-dotenv==0.6.4
 codecov==2.0.9
