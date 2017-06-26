@@ -15,7 +15,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 
-api = tweepy.API(auth)
+
 
 
 # TODO api oAuth return
@@ -40,8 +40,10 @@ def _print_report(user_obj, followers_list):
 
 
 def main():
+    api = tweepy.API(auth)
     me = api.get_user(id=3004355500)
     me_followers = me.followers()
+
     _print_report(me, me_followers)
 
 if __name__ == "__main__":
