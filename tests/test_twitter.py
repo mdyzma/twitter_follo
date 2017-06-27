@@ -1,7 +1,11 @@
 from __future__ import absolute_import, division, print_function
+
 import os.path
+
 import pytest
-import app.twitter
+
+import auth
+
 try:
     from dotenv import load_dotenv
 except ImportError:
@@ -21,7 +25,7 @@ access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
 @pytest.fixture
 def me():
-    me = app.twitter.main()
+    me = auth.main()
     return me
 
 
