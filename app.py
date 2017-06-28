@@ -1,5 +1,5 @@
 from __future__ import absolute_import, print_function
-from flask import (Flask, flash, request, redirect, render_template, session, url_for)
+from flask import (Flask, flash, request, redirect, render_template, url_for)
 import tweepy
 import auth
 
@@ -8,7 +8,7 @@ app = Flask(__name__, static_folder='static')
 
 consumer_key = auth.consumer_key
 consumer_secret = auth.consumer_secret
-callback_url = '0.0.0.0:5000/signin'
+callback_url = '0.0.0.0:5000/verify'
 
 session = {}
 data = {}
@@ -19,8 +19,8 @@ def index():
     return render_template('start.html')
 
 
-@app.route('/signin', methods=['POST'])
-def sign_in():
+@app.route('/authorize', methods=['POST'])
+def authorize():
     oauth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_url)
     try:
         url = oauth.get_authorization_url()
@@ -35,7 +35,7 @@ def get_verification():
     # get the verifier key from the request url
     verifier = request.args['oauth_verifier']
 
-    oauth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    oauth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_url)
     token = session['request_token']
     del session['request_token']
 
@@ -53,22 +53,12 @@ def get_verification():
     data['api'] = api
     data['access_token_key'] = oauth.access_token.key
     data['access_token_secret'] = oauth.access_token_secret
-    return redirect(url_for('follower/follower'))
+    return redirect(url_for('followers/followers'))
 
 
-@app.route('/app')
-def request_twitter():
-    token, token_secret = session['token']
-    oauth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_url)
-    oauth.set_access_token(token, token_secret)
-    api = tweepy.API(oauth)
-    return api.me()
-
-
-@app.route('/follower/follower')
-def followers(data):
-
-    return render_template('start.html')
+@app.route('/followers/followers')
+def followers():
+    return 'Hello, Twitter'
 
 
 if __name__ == '__main__':
