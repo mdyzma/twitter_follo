@@ -1,7 +1,9 @@
 from __future__ import absolute_import, division, print_function
 import os.path
-# import logging # TODO add logging to the programm
+# import logging # TODO add logging to the program
 import tweepy
+# import oauth2 as oauth
+
 
 try:
     from dotenv import load_dotenv
@@ -9,7 +11,7 @@ except ImportError:
     pass
 
 try:
-    dotenv_path = os.path.abspath(os.path.join(os.path.dirname("."), 'local_settings.py'))
+    dotenv_path = os.path.abspath('local_settings.py')
     load_dotenv(dotenv_path)
 except FileNotFoundError:
     pass
@@ -20,6 +22,9 @@ consumer_secret = os.environ["CONSUMER_API_SECRET"]
 access_token = os.environ["ACCESS_TOKEN"]
 access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
+# consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
+# access_token = oauth.Token(key=access_token, secret=access_token_secret)
+# client = oauth.Client(consumer, access_token)
 
 # TODO Get followers follower of indicated  and return list
 
@@ -43,16 +48,8 @@ def _print_report(user_obj, followers_list):
 def main():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
-
     api = tweepy.API(auth)
-    me = api.get_user(id=3004355500)
-
-    me_followers = me.followers()
-
-    _print_report(me, me_followers)
-
-    return me
+    return api
 
 if __name__ == "__main__":
     main()
-
