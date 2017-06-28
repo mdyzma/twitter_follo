@@ -24,15 +24,15 @@ access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
 
 @pytest.fixture
-def me():
-    me = auth.main()
+def api():
+    api = auth.main()
+    me = api.get_user(id=3004355500)
     return me
 
 
-def test_api_connection(me):
-    assert me.id == 3004355500
+def test_api_connection(api):
+    assert api.id == 3004355500
 
 
-def test_list_of_followers(me):
-    assert me.followers_ids() == [855057222627454977, 2618262152,  4815210058, 800074851335536640,  3007769517,
-                                  801998858775498752,  777810001888997376, 42554977,  39286720, 92269871]
+# def test_list_of_followers(me):
+#     assert 855057222627454977 in me.followers_ids()

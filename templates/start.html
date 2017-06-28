@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css" />
+    <title>{% block title %}Start{% endblock %} - Twitter Followers</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- Bootstrap Material Design -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/mdb.min.css') }}">
+    <!-- Your custom styles (optional) -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<style>
+    html,
+body,
+.view {
+    height: 100%;
+}
+
+.view {
+    background: url("https://mdbootstrap.com/images/regular/city/img%20(17).jpg")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.flex-center {
+    color: #fff;
+}
+h1 {
+    font-size: 550%;
+}
+</style>
+
+<body>
+    <!--Navbar-->
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-dark bg-primary double-nav scrolling-navbar">
+        <div class="container">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseEx2" aria-controls="collapseEx2" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <strong>TWITTER FOLLOWERS</strong>
+            </a>
+            <div class="collapse navbar-collapse" id="collapseEx2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://twitter-follo.readthedocs.io/en/latest/?badge=latest">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/mdyzma/twitter_follo">GitHub</a>
+                    </li>
+                </ul>
+                {% block logged %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </nav>
+    <!--/.Navbar-->
+
+    {% block mask %}
+    <!--Mask-->
+    <div class="view hm-black-strong">
+        <!--Intro content-->
+        <div class="full-bg-img flex-center">
+            <ul>
+                <li>
+                    <h1 class="h1-responsive">Log in to your Twitter account</h1>
+                </li>
+                <li>
+                    <p>See how big your network is !</p>
+                </li>
+                <li>
+                    <form method="POST" action="{{ url_for('sign_in') }}"><button class="btn btn-primary btn-lg" type="submit" name="submit" value="submit"><i class="fa fa-twitter fa-fw fa-lg" aria-hidden="true"></i> Sign in!</button></form>
+                </li>
+            </ul>
+        </div>
+        <!--/Intro content-->
+    </div>
+    <!--/.Mask-->
+    {% endblock %}
+
+    {% block content %}
+        <div class="container">
+
+            <div id="section">
+
+            </div>
+
+        </div>
+    {% endblock %}
+
+<!-- jQuery -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
+<!-- tether -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/tether.min.js') }}"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/mdb.min.js') }}"></script>
+</body>
+
+</html>

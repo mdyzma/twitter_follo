@@ -1,19 +1,17 @@
-html {
-    position: relative;
-    min-height: 100%;
+html,
+body,
+.view {
+    height: 100%;
 }
 
-body {
-    margin: 0 0 100px;
-    padding: 25px;
+.view {
+    background: url("https://mdbootstrap.com/images/regular/city/img%20(17).jpg")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-footer {
-    background-color: orange;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
-    overflow:hidden;
+h1 {
+    font-size: 250%;
 }

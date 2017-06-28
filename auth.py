@@ -1,17 +1,19 @@
-from __future__ import absolute_import, division, print_function
+from __future__ import absolute_import, print_function
 import os.path
 # import logging # TODO add logging to the program
 import tweepy
 # import oauth2 as oauth
 
 
+# package will set key: value environment variables for app. Same mechanism is used on
+# heroku web, where os env variables are created. This way sensitive data are never exposed.
 try:
     from dotenv import load_dotenv
 except ImportError:
     pass
 
 try:
-    dotenv_path = os.path.abspath('local_settings.py')
+    dotenv_path = os.path.abspath('local_settings.py')  # !! ALWAYS EXCLUDE THIS FILE FROM VERSION CONTROL !!
     load_dotenv(dotenv_path)
 except FileNotFoundError:
     pass
@@ -52,4 +54,4 @@ def main():
     return api
 
 if __name__ == "__main__":
-    main()
+    pass
