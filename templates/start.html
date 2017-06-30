@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="style.css" />
     <title>{% block title %}Start{% endblock %} - Twitter Followers</title>
     
     <!-- Font Awesome -->
@@ -33,9 +32,6 @@ body,
 .flex-center {
     color: #fff;
 }
-h1 {
-    font-size: 550%;
-}
 </style>
 
 <body>
@@ -57,13 +53,24 @@ h1 {
                         <a class="nav-link" href="https://github.com/mdyzma/twitter_follo">GitHub</a>
                     </li>
                 </ul>
+            <ul class>
                 {% block logged %}
-
+    <li><a href="{{ url_for('index') }}">overview</a></li>
+  {% if g.user %}
+    <li><a href="{{ url_for('logout') }}">sign out [{{ g.user.screen_name}}]</a></li>
+  {% else %}
+  <li><a href="{{ url_for('login') }}">sign in</a></li>
+                    {% endif %}
                 {% endblock %}
+            </ul>
             </div>
         </div>
     </nav>
     <!--/.Navbar-->
+
+    {% for message in get_flashed_messages() %}
+        <p class=message>{{ message }}</p>
+    {% endfor %}
 
     {% block mask %}
     <!--Mask-->
@@ -78,7 +85,7 @@ h1 {
                     <p>See how big your network is !</p>
                 </li>
                 <li>
-                    <form method="POST" action="{{ url_for('authorize') }}"><button class="btn btn-primary btn-lg" type="submit" name="submit" value="submit"><i class="fa fa-twitter fa-fw fa-lg" aria-hidden="true"></i> Sign in!</button></form>
+                    <a href="{{ url_for('login') }}"><button class="btn btn-primary btn-lg" type="submit" name="submit" value="submit"><i class="fa fa-twitter fa-fw fa-lg" aria-hidden="true"></i> Sign in!</button></a>
                 </li>
             </ul>
         </div>
@@ -88,13 +95,7 @@ h1 {
     {% endblock %}
 
     {% block content %}
-        <div class="container">
 
-            <div id="section">
-
-            </div>
-
-        </div>
     {% endblock %}
 
 <!-- jQuery -->

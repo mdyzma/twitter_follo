@@ -4,7 +4,7 @@ import os.path
 
 import pytest
 
-import auth
+import secrets
 
 try:
     from dotenv import load_dotenv
@@ -25,7 +25,7 @@ access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
 @pytest.fixture
 def api():
-    api = auth.main()
+    api = secrets.main()
     me = api.get_user(id=3004355500)
     return me
 
