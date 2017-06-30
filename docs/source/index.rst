@@ -18,11 +18,11 @@ Page contents:
 
 .. toctree::
     :maxdepth: 2
-    :caption: Contents:
 
     quickstart
+    development
+    twitter_follo
     contribution
-    api
     license
 
 
