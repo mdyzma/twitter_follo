@@ -4,7 +4,7 @@
 Contribution
 ============
 
-You can contribute in many ways:
+You can contribute in many ways, but before you do please check this article: `Twitter App Development <http://twitter-follo.readthedocs.io/en/latest/development.html>`_
 
 Report Bugs
 ~~~~~~~~~~~
