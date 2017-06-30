@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Start{% endblock %} - Twitter Followers</title>
     
     <!-- Font Awesome -->
@@ -15,6 +17,8 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/mdb.min.css') }}">
     <!-- Your custom styles (optional) -->
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <style>
     html,
@@ -72,13 +76,48 @@ h1 {
         <div class="full-bg-img flex-center">
             <ul>
                 <li>
-                    <h1 class="h1-responsive">Log in to your Twitter account</h1>
+                    <h1 class="h1-responsive">Sign in with your Twitter account</h1>
                 </li>
                 <li>
                     <p>See how big your network is !</p>
                 </li>
                 <li>
-                    <form method="POST" action="{{ url_for('authorize') }}"><button class="btn btn-primary btn-lg" type="submit" name="submit" value="submit"><i class="fa fa-twitter fa-fw fa-lg" aria-hidden="true"></i> Sign in!</button></form>
+{#                    <form method="POST" action="{{ url_for('authorize') }}"><button class="btn btn-primary btn-lg" type="submit" name="submit" value="submit"> Sign in!</button></form>#}
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#oauthModal">
+                   <i class="fa fa-twitter fa-fw fa-lg" aria-hidden="true"></i> Connect Twitter Account
+                </button>
+
+<!-- Central Modal Medium Info -->
+<div class="modal fade" id="oauthModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-info" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <p class="heading lead">Twitter authorization</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="text-center">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga, enim,
+                        ab officiis totam.</p>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" class="btn btn-outline-secondary-modal waves-effect" data-dismiss="modal">No, thanks</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- Central Modal Medium Info-->
+
+
                 </li>
             </ul>
         </div>
