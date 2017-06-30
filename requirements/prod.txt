@@ -1,0 +1,4 @@
+wheel==0.29.0
+tweepy==3.5.0
+Flask==0.12.2
+python-dotenv==0.6.4

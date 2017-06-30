@@ -1,0 +1,20 @@
+-r prod.txt
+-r doc.txt
+
+# Development environment
+Flask-DebugToolbar==0.10.1
+six==1.10.0
+requests==2.18.1
+
+# testing packages
+pytest==3.1.2
+pytest-cov==2.3.1
+pytest-runner==2.11.1
+
+# Code tests coverage reports
+coverage==4.3.4
+codecov==2.0.9
+
+
+# Code quality metrics
+pylint

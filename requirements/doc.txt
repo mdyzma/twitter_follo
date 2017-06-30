@@ -1,0 +1,4 @@
+# Documentation creation
+Sphinx==1.6.2
+sphinx-autobuild==0.6.0
+sphinxcontrib-napoleon==0.6.1

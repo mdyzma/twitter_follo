@@ -1,11 +1,2 @@
-wheel==0.29.0
-tweepy==3.5.0
-Flask==0.12.2
-python-dotenv==0.6.4
-six==1.10.0
-pytest==3.1.2
-pytest-cov==2.3.1
-pytest-runner==2.11.1
-coverage==4.3.4
-requests==2.14.2
-codecov==2.0.9
+# Requirements which must be installed to run app
+-r requirements/prod.txt
