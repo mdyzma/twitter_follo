@@ -1,39 +1,56 @@
-from __future__ import absolute_import, print_function
-from flask import (Flask, flash, g, request, redirect, render_template, session, url_for)
-# import tweepy
-from flask_oauthlib.client import OAuth
-import secrets
+import os
+from flask import Flask, redirect, url_for, render_template, flash
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, logout_user,\
+    current_user
+from oauth import OAuthSignIn
+
+# dotenv package will set key: value environment variables for app. Same mechanism is used on
+# heroku web, where os env variables are created. This way sensitive data are never exposed.
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    pass
+
+try:
+    dotenv_path = os.path.abspath('local_settings.py')  # !! ALWAYS EXCLUDE THIS FILE FROM VERSION CONTROL !!
+    load_dotenv(dotenv_path)
+except FileNotFoundError:
+    pass
+
+finally:
+    consumer_key = os.environ["CONSUMER_API_KEY"]
+    consumer_secret = os.environ["CONSUMER_API_SECRET"]
+    access_token = os.environ["ACCESS_TOKEN"]
+    access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
 
-app = Flask(__name__, static_folder='static')
-app.debug = True
-app.secret_key = 'development'
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'top secret!'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['OAUTH_CREDENTIALS'] = {
+    'twitter': {
+        'id': consumer_key,
+        'secret': consumer_secret
+    }
+}
 
-oauth = OAuth(app)
-
-twitter = oauth.remote_app(
-    'twitter',
-    consumer_key=secrets.consumer_key,
-    consumer_secret=secrets.consumer_secret,
-    base_url='https://api.twitter.com/1.1/',
-    request_token_url='https://api.twitter.com/oauth/request_token',
-    access_token_url='https://api.twitter.com/oauth/access_token',
-    authorize_url='https://api.twitter.com/oauth/authorize'
-)
+db = SQLAlchemy(app)
+lm = LoginManager(app)
+lm.login_view = 'index'
 
 
-@twitter.tokengetter
-def get_twitter_token():
-    if 'twitter_oauth' in session:
-        resp = session['twitter_oauth']
-        return resp['oauth_token'], resp['oauth_token_secret']
+class User(UserMixin, db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    social_id = db.Column(db.String(64), nullable=False, unique=True)
+    nickname = db.Column(db.String(64), nullable=False)
+    email = db.Column(db.String(64), nullable=True)
 
 
-@app.before_request
-def before_request():
-    g.user = None
-    if 'twitter_oauth' in session:
-        g.user = session['twitter_oauth']
+@lm.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 
 @app.route('/')
@@ -41,74 +58,45 @@ def index():
     return render_template('start.html')
 
 
-
-# @app.route('/authorize', methods=['POST'])
-# def authorize():
-#     oauth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_url)
-#     try:
-#         url = oauth.get_authorization_url()
-#         session['request_token'] = oauth.request_token
-#     except tweepy.TweepError:
-#         flash('Error! Failed to get request token')
-#     return redirect(url)
-
-#
-# @app.route("/verify")
-# def get_verification():
-#     # get the verifier key from the request url
-#     verifier = request.args['oauth_verifier']
-#
-#     oauth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_url)
-#     token = session['request_token']
-#     del session['request_token']
-#
-#     oauth.set_access_token(token[0], token[1])
-#
-#     try:
-#         oauth.get_access_token(verifier)
-#     except tweepy.TweepError:
-#         flash('Error! Failed to get access token.')
-#
-#     # now you have access!
-#     api = tweepy.API(oauth)
-#
-#     # store data
-#     data['api'] = api
-#     data['access_token_key'] = oauth.access_token.key
-#     data['access_token_secret'] = oauth.access_token_secret
-#     return redirect(url_for('followers/followers'))
-
-
-@app.route('/login')
-def login():
-    callback_url = url_for('oauthorized', next=request.args.get('next'))
-    return twitter.authorize(callback=callback_url or request.referrer or None)
-
-
 @app.route('/logout')
 def logout():
-    session.pop('twitter_oauth', None)
-    return redirect(url_for('start'))
+    logout_user()
+    return redirect(url_for('index'))
 
 
-@app.route('/oauthorized')
-def oauthorized():
-    resp = twitter.authorized_response()
-    if resp is None:
-        flash('You denied the request to sign in.')
-    else:
-        session['twitter_oauth'] = resp
+@app.route('/authorize/<provider>')
+def oauth_authorize(provider):
+    if not current_user.is_anonymous:
+        return redirect(url_for('index'))
+    oauth = OAuthSignIn.get_provider(provider)
+    return oauth.authorize()
+
+
+@app.route('/callback/<provider>')
+def oauth_callback(provider):
+    if not current_user.is_anonymous:
+        return redirect(url_for('index'))
+    oauth = OAuthSignIn.get_provider(provider)
+    social_id, username, email = oauth.callback()
+    if social_id is None:
+        flash('Authentication failed.')
+        return redirect(url_for('index'))
+    user = User.query.filter_by(social_id=social_id).first()
+    if not user:
+        user = User(social_id=social_id, nickname=username, email=email)
+        db.session.add(user)
+        db.session.commit()
+    login_user(user, True)
     return redirect(url_for('followers'))
 
-@app.route('/followers/followers')
+
+@app.route('/followers/followers/')
 def followers():
-    resp = twitter.authorized_response()
-    if resp is None:
-        flash('You denied the request to sign in.')
-    else:
-        session['twitter_oauth'] = resp
+    # render followers of followers with Coursor
+
     return render_template('followers.html')
 
 
 if __name__ == '__main__':
+    db.create_all()
     app.run(debug=True)
