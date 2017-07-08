@@ -3,36 +3,36 @@
 API
 ===
 
-app module
-----------
+.. app module
+.. ----------
 
-.. automodule:: twitter_follo.app
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. .. automodule:: twitter_follo.app
+..     :members:
+..     :undoc-members:
+..     :show-inheritance:
 
-auth module
------------
+.. auth module
+.. -----------
 
-.. automodule:: twitter_follo.auth
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. .. automodule:: twitter_follo.auth
+..     :members:
+..     :undoc-members:
+..     :show-inheritance:
 
-database module
----------------
+.. database module
+.. ---------------
 
-.. automodule:: twitter_follo.database
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. .. automodule:: twitter_follo.database
+..     :members:
+..     :undoc-members:
+..     :show-inheritance:
 
 
 
-Module contents
----------------
+.. Module contents
+.. ---------------
 
-.. automodule:: twitter_follo
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. .. automodule:: twitter_follo
+..     :members:
+..     :undoc-members:
+..     :show-inheritance:

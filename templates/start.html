@@ -7,7 +7,7 @@
     {% block css %}
     <!-- Fonts -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family="Fontdiner+Swanky" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family='Fontdiner+Swanky'" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 
@@ -15,30 +15,36 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/mdb.min.css') }}">
     <!-- Your custom styles (optional) -->
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        html,
+        body,
+        .view {
+            height: 100%;
+        }
+
+        .view {
+            background: url("https://mdbootstrap.com/images/regular/city/img%20(17).jpg")no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .flex-center {
+            color: #fff;
+        }
+        .container {
+            padding-top: 5px;
+        }
+
+    </style>
     {% endblock %}
 </head>
-<style>
-    html,
-body,
-.view {
-    height: 100%;
-}
 
-.view {
-    background: url("https://mdbootstrap.com/images/regular/city/img%20(17).jpg")no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-.flex-center {
-    color: #fff;
-}
-</style>
 
 <body>
     <!--Navbar-->
-    <nav class="navbar fixed-top navbar-toggleable-md navbar-dark bg-primary scrolling-navbar">
+    <nav class="navbar navbar-toggleable-md navbar-dark bg-primary scrolling-navbar">
         <div class="container">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseEx2" aria-controls="collapseEx2" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -100,9 +106,11 @@ body,
     <!--/.Mask-->
     {% endblock %}
 
-    {% block content %}
+    <div class="container">
+        {% block content %}
 
-    {% endblock %}
+        {% endblock %}
+    </div>
 
 <!-- jQuery -->
 <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>

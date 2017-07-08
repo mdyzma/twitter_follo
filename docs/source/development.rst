@@ -1,7 +1,7 @@
 .. _development:
 
-Twitter App Development
-=======================
+Twitter Followers Workflow
+==========================
 
 
 This document contains some best practices, and basic workflow which can be used during further Twitter Followers app development. 

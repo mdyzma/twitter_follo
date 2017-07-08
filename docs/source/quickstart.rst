@@ -29,7 +29,7 @@ To deploy your copy of application simply click
 
 .. warning::
     You will need Twitter app and SECRET CREDENTIALS provided by Twitter in order to make it work.
-    See 
+    See _twitter_dev
 
 You can also quickly deploy using git. Make sure you have Python_ and HerokuCLI_ installed.::
 
@@ -50,16 +50,13 @@ It can be also run locally. Make sure you have Python_ installed properly.  Also
     $ pip install --no-cache-dir -r requirements.txt
     $ heroku local
 
-For development environment 
-
 Your app should now be running on `http://127.0.0.1:5000 <http://localhost:5000/>`_.
-
 
 
 Documentation
 -------------
 
-For more information, i.e. about app further development, see project's documentation documentation_.
+For more information, i.e. about app further development used approaches, see project's documentation_.
 
 
 
@@ -71,7 +68,7 @@ For more information, i.e. about app further development, see project's document
 .. _Python: http://install.python-guide.org
 .. _HerokuCLI: https://toolbelt.heroku.com
 .. _documentation: http://twitter-follo.readthedocs.io/en/latest/?badge=latest
-
+.. _twitter_dev: https://iag.me/socialmedia/how-to-create-a-twitter-app-in-8-easy-steps/
 
 .. |Deploy| image:: https://www.herokucdn.com/deploy/button.png
     :target: https://heroku.com/deploy

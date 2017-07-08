@@ -7,11 +7,12 @@
 {% block content %}
 
     <div class="container">
+        <h1>List of the second line followers</h1>
         {% if followers %}
             {% for key, val in followers.items() %}
                 <ul class="list-group">
                     <li class="list-group-item justify-content-between">
-                        {{ key }}
+                        <h5>{{ key }}</h5>
                         <span class="badge badge-primary badge-pill">{{ val|length  }}</span>
                     </li>
                 </ul>
