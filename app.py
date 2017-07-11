@@ -19,7 +19,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 # -----------------------------------------------------------------------------
 # Local Library Imports
 # -----------------------------------------------------------------------------
-# from twitter_app.followers import Followers
+from twitter_app.followers import Followers
 
 # ----------------------------------------------------------------------------
 # Read sensitive data
@@ -174,12 +174,13 @@ def followers():
 
     print(_followers.get("ids"))
 
-    # Followers(session['oauth_user'], twitter)
-    # _lookup_data = twitter.get('users/lookup.json', data={'user_id': '')
-    #
-    # followers_data = FollowersOfFollower(auth_user.data, twitter)
+    my_followers  = Followers(session['oauth_user'], twitter)
 
-    return render_template('followers.html', followers=user_followers, user=user_name)
+    data = user_followers.get_second_followers()
+
+    my_followers.save_json(data)
+
+    return render_template('followers.html', followers=data, user=user_name)
 
 
 if __name__ == '__main__':
