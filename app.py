@@ -19,7 +19,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 # -----------------------------------------------------------------------------
 # Local Library Imports
 # -----------------------------------------------------------------------------
-from twitter_app.follower import FollowersOfFollower
+# from twitter_app.followers import Followers
 
 # ----------------------------------------------------------------------------
 # Read sensitive data
@@ -69,6 +69,7 @@ class User(UserMixin, db.Model):
 
 # TODO Move data to MONGO
 
+
 @lm.user_loader
 def load_user(id):
     return User.query.get(int(id))
@@ -93,15 +94,17 @@ def get_twitter_token():
         resp = session['twitter_oauth']   
     return resp['oauth_token'], resp['oauth_token_secret']
 
+
 @app.before_request
 def before_request():
     g.user = None
     if 'twitter_oauth' in session:
         g.user = session['twitter_oauth']
+
+
 # ----------------------------------------------------------------------------
 # views
 # ----------------------------------------------------------------------------
-
 @app.route('/')
 def index():
     app.logger.info('App started.')
@@ -123,6 +126,14 @@ def logout():
 
 @app.route('/oauth-authorized')
 def oauth_authorized():
+    """Authorization rout, which also gets data to the user table.
+
+    Returns
+    -------
+    str
+        Url to the callback url from Twitter ap settings
+
+    """
     resp = twitter.authorized_response()
     if resp is None:
         flash('You denied the request to sign in.')
@@ -133,8 +144,8 @@ def oauth_authorized():
         session['twitter_user'] = resp['screen_name']
 
     auth_user = twitter.get('account/verify_credentials.json')
+    session['oauth_user'] = auth_user.data
 
-    print(auth_user.data)
     social_id = auth_user.data.get('id')
     username = auth_user.data.get('screen_name')
     followers_count = auth_user.data.get('followers_count')
@@ -158,7 +169,13 @@ def followers():
 
     # Obtain verified user data
 
+    _followers = twitter.get('followers/ids.json',
+                             data={'cursor': -1, 'screen_name': user_name, 'count': 5000}).data
 
+    print(_followers.get("ids"))
+
+    # Followers(session['oauth_user'], twitter)
+    # _lookup_data = twitter.get('users/lookup.json', data={'user_id': '')
     #
     # followers_data = FollowersOfFollower(auth_user.data, twitter)
 
