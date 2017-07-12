@@ -47,7 +47,7 @@ finally:
 app = Flask(__name__)
 app.debug = False
 app.config['SECRET_KEY'] = os.urandom(24)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite')
 
 # ----------------------------------------------------------------------------
 # Setting flask app with user and 3 leg authorization

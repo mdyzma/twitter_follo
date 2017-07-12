@@ -1,0 +1,7 @@
+# Example of file with your app credentials.
+CONSUMER_API_KEY = "ljkhfKJHFKJFKJFDHfdKJFHKFGD"
+CONSUMER_API_SECRET = "fdjgL{KHlkjglgKJHGKJHGLHKLhklghklGJgjhgJglJglglPK EJFEJ:LFJEE"
+ACCESS_TOKEN = "87756798012222-YULjkgUYYKjh;KHFGFPJG:oYPYYK"
+ACCESS_TOKEN_SECRET = "HJNnGFBhgfbmhvn,jfBHVkjhbkhvbkHFJDBJfjgdfb"
+HEROKU_API_KEY = "1ca45aa7-4419-22ae-c176-66h7fc6fa08e"
+DATABASE_URL = "sqlite:///db.sqlite"
