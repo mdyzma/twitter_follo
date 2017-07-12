@@ -5,12 +5,12 @@ Quickstart
 
 A Python app, which display followers of the followers of your Twitter account. Can be deployed to Heroku. 
 
-Application havily inspired by `Miguel's Grinberg Flask oAuth tutorial <https://blog.miguelgrinberg.com/post/oauth-authentication-with-flask>`_. UI based on MDB Free and EBM Bootstrap Plugin, available under MIT License and provided by `MDBoostrap.com <https://mdbootstrap.com>`_.
+Application UI based on MDB Free and EBM Bootstrap Plugin, available under MIT License and provided by `MDBoostrap.com <https://mdbootstrap.com>`_.
 
 Usage
 -----
 
-1. Visit [web site]()
+1. Visit heroku_app_
 
 .. image:: _static/img/screen-start.png
 
@@ -69,6 +69,7 @@ For more information, i.e. about app further development used approaches, see pr
 .. _HerokuCLI: https://toolbelt.heroku.com
 .. _documentation: http://twitter-follo.readthedocs.io/en/latest/?badge=latest
 .. _twitter_dev: https://iag.me/socialmedia/how-to-create-a-twitter-app-in-8-easy-steps/
+.. _heroku_app: https://fast-forest-95874.herokuapp.com
 
 .. |Deploy| image:: https://www.herokucdn.com/deploy/button.png
     :target: https://heroku.com/deploy
