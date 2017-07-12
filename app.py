@@ -157,7 +157,7 @@ def oauth_authorized():
         user = User(social_id=social_id, nickname=username, fcount=followers_count,)
         db.session.add(user)
         db.session.commit()
-    login_user(user, True)
+    # login_user(user, True)
     return redirect(url_for('followers'))
 
 
