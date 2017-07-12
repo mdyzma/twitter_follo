@@ -174,7 +174,7 @@ def followers():
 
     print(_followers.get("ids"))
 
-    my_followers  = Followers(session['oauth_user'], twitter)
+    my_followers = Followers(session['oauth_user'], twitter)
 
     data = user_followers.get_second_followers()
 

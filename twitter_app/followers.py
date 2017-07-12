@@ -143,13 +143,14 @@ class Followers(object):
         for follower in _sorted:
             _resp = self.get_followers_list(follower)
             _lookup = self.lookup_users(_resp)
-
+            _count = self.following_my_followers_count(_lookup)
             for user in self.lookup_response:
                 if follower in user.get('id'):
                     data = {'id': follower,
                             'name': user.get('screen_name'),
                             'followers_count': user.get('followers_count'),
-                            'followers_ids': _resp}
+                            'following_count': _count,
+                            'followers_data': _lookup}
         return data
 
 
@@ -179,8 +180,12 @@ class Followers(object):
         if item_list:
             return ','.join([str(i) for i in item_list])
 
-    def who_is_following_who(self):
-        pass
+    def following_my_followers_count(self, data):
+        count = 0
+        for uid in self.followers_list:
+            if uid in data.get('followers_data').get('id'):
+                count += 1
+        return count
 # ----------------------------------------------------------------------------
 # I/O OPERATIONS
 # ----------------------------------------------------------------------------
