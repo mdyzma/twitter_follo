@@ -3,5 +3,5 @@
   "description": "Python app, which can display second degree followers.",
   "image": "heroku/python",
   "repository": "https://github.com/mdyzma/twitter_follo",
-  "keywords": ["python", "heroku", "twitter"],`
+  "keywords": ["python", "heroku", "twitter"]
 }
