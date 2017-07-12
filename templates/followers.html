@@ -8,10 +8,8 @@
 
     <div class="container">
         <h1>List of the second line followers of {{ user }}</h1>
-        
-        {% if json %}
-            <h3>View as <a href="{{ url_for('json') }}">JSON data</a></h3>    
-        {% endif %}
+
+        <h3>View as <a href="{{ url_for('json') }}">JSON data</a></h3>
 
         {% if followers %}
             {% for user in followers %}

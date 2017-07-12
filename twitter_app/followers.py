@@ -82,8 +82,8 @@ class Followers(object):
         return follower_ids, lookups
 
     def get_followers_list(self, _uid):
-        _resp = self.service.get('followers/ids.json', data={'user_id': _uid, 'count': 5000})
-        return _resp.data.get('ids')
+        _resp = self.service.get('followers/ids.json', data={'user_id': _uid, 'count': 5000}).data.get('ids')
+        return _resp
 
     def lookup_users(self, followers_list):
         """Looks up profile data of authenticated user followers. Useful to sort
@@ -96,16 +96,16 @@ class Followers(object):
         """
 
         lookup_data = []
-        _, _lookups = self.get_current_limits()
+        _ids, _lookups = self.get_current_limits()
+
+
 
         # TODO Large datasets in pages
 
         # API accepts max 100 ids at the time, while get id returns 5000,
         # therefore 50 lookups can be done for account with 5000 followers
-        if len(followers_list) is 0:
-            return []
 
-        elif len(followers_list) > 100:
+        if len(followers_list) > 100:
             chunks = [followers_list[x:x+100] for x in range(0, len(followers_list), 100)]
 
             for chunk in chunks:
@@ -114,7 +114,7 @@ class Followers(object):
         else:
             lookup_data = self.service.get('users/lookup.json',
                                            data={'user_id': '{}'.format(Followers.expand_list_to_param(followers_list))}).data
-        print(lookup_data[0])
+
         return lookup_data
 
     def get_second_followers(self):

@@ -170,7 +170,14 @@ def followers():
     # Obtain verified user data
     _followers_obj = Followers(auth_user=session['oauth_user'], service=twitter)
     followers_dict = _followers_obj.get_second_followers()
-    _followers_obj.save_json(followers_dict)
+    uid = session['oauth_user'].get('id')
+    screen_name = session['twitter_user']
+    fname = '_'.join([str(screen_name), str(uid), '.json'])
+    session['fname'] = fname
+    # with open(fname, 'w') as f:
+    #     f.write(json.dumps(followers_dict))
+    session['json_data'] = followers_dict
+    # _followers_obj.save_json(followers_dict)
 
     app.logger.debug("Data processed")
     return render_template('followers.html', followers=followers_dict, user=user_name)
@@ -178,16 +185,17 @@ def followers():
 
 @app.route('/followers/followes/json')
 def json():
-    cache = os.path.abspath('.cache')
-    fspec = os.path.join(cache, '*.json')
-    cache_file_list = [i for i in glob(fspec)]
-    for item in cache_file_list:
-        if session['oauth_user'].get('id') in item:
+    # cache = os.path.abspath('.cache')
+    # fspec = os.path.join(cache, '*.json')
+    # cache_file_list = [i for i in glob(fspec)]
+    # for item in cache_file_list:
+    #     if session['oauth_user'].get('id') in item:
             
-            with open(item) as data_file:    
-                data = json.load(data_file)
-    app.logger.debug("JSON data display.")
-    return jsonify(data)
+    # with open(session['fname']) as data_file:
+    #     data = json.load(data_file)
+    # app.logger.debug("JSON data display.")
+    data = session['json_data']
+    return jsonify(**data)
 
 if __name__ == '__main__':
     db.create_all()
