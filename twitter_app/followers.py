@@ -10,7 +10,7 @@ from glob import glob
 # -----------------------------------------------------------------------------
 # Related Library Imports
 # -----------------------------------------------------------------------------
-from flask import current_app
+# from flask import current_app
 # -----------------------------------------------------------------------------
 # Local Library Imports
 # -----------------------------------------------------------------------------
@@ -36,8 +36,10 @@ class Followers(object):
         "id": 877242472912564224
         "screen_name": "TEDxSingapore"
         "followers_count": 0,
-        "followers_ids": [
-        ...
+        "following_my_followers_count": 2
+        "followers_data": [
+        User, 
+        User,
         ],
         }
     
@@ -62,10 +64,10 @@ class Followers(object):
         if self.service:
             # Data produced by API calls
             self.followers_list = self.get_followers_list(self.uid)
-            self.lookup_response = self.lookup_users()
+            self.lookup_response = self.lookup_users(self.followers_list)
             self.sorted_followers_list = self.sort_followers_list()
-        else:
-            current_app.logger.error('Not authorized to use Twitter API.')
+        # else:
+        #     current_app.logger.error('Not authorized to use Twitter API.')
 
 # ----------------------------------------------------------------------------
 # API requests
@@ -83,7 +85,6 @@ class Followers(object):
         _resp = self.service.get('followers/ids.json', data={'user_id': _uid, 'count': 5000})
         return _resp.data.get('ids')
 
-
     def lookup_users(self, followers_list):
         """Looks up profile data of authenticated user followers. Useful to sort
         in respect to followers count. This way first 14 GET requests is able to
@@ -95,24 +96,25 @@ class Followers(object):
         """
 
         lookup_data = []
-        _, _lookups = Followers.get_current_limits()
+        _, _lookups = self.get_current_limits()
 
-        if _lookups*100 > followers_list:
-            pass
         # TODO Large datasets in pages
 
         # API accepts max 100 ids at the time, while get id returns 5000,
         # therefore 50 lookups can be done for account with 5000 followers
-        if len(followers_list) > 100:
+        if len(followers_list) is 0:
+            return []
+
+        elif len(followers_list) > 100:
             chunks = [followers_list[x:x+100] for x in range(0, len(followers_list), 100)]
 
             for chunk in chunks:
-                lookup_data.append(self.service.get('users/lookup.json',
-                                                    data={'user_id': '{}'.format(Followers.expand_list_to_param(chunk))}).data)
+                lookup_data += (self.service.get('users/lookup.json',
+                                                 data={'user_id': '{}'.format(Followers.expand_list_to_param(chunk))}).data)
         else:
             lookup_data = self.service.get('users/lookup.json',
                                            data={'user_id': '{}'.format(Followers.expand_list_to_param(followers_list))}).data
-
+        print(lookup_data[0])
         return lookup_data
 
     def get_second_followers(self):
@@ -120,9 +122,6 @@ class Followers(object):
         to get list of second degree followers for each item from previous list.
         If followers count exceeds 5000, due toT Twitter API limitations only
         first page (counting 5000 items) is downloaded.
-
-        Arguments
-        ---------
 
         Returns
         -------
@@ -132,26 +131,30 @@ class Followers(object):
         """
 
         # Check limits
-        _idslimit, _ = Followers.get_current_limits()
+        _idslimit, _ = self.get_current_limits()
         # TODO waiting time check
         # adjust list to the top largest followers, limited with 'GET followers/ids' API limit. If list is larger
         #  than 5000, takes first page
         data = {}
 
         _sorted = self.sorted_followers_list[:_idslimit]
-
+        _final = []
+        
         for follower in _sorted:
             _resp = self.get_followers_list(follower)
+            _count = self.following_my_followers_count(_resp)
             _lookup = self.lookup_users(_resp)
-            _count = self.following_my_followers_count(_lookup)
-            for user in self.lookup_response:
-                if follower in user.get('id'):
-                    data = {'id': follower,
-                            'name': user.get('screen_name'),
-                            'followers_count': user.get('followers_count'),
-                            'following_count': _count,
-                            'followers_data': _lookup}
-        return data
+        
+        # TODO Response errors handling
+
+            for uid in _resp:
+                for user in _lookup:
+                    if uid == user.get('id'):
+                        _handle = '@' + str(user.get('screen_name'))
+                        data = {'name': _handle,
+                                'follows': _count}
+                        _final.append(data)               
+        return _final
 
 
 # ----------------------------------------------------------------------------
@@ -180,10 +183,10 @@ class Followers(object):
         if item_list:
             return ','.join([str(i) for i in item_list])
 
-    def following_my_followers_count(self, data):
+    def following_my_followers_count(self, followers_followers_list):
         count = 0
-        for uid in self.followers_list:
-            if uid in data.get('followers_data').get('id'):
+        for uid in followers_followers_list:
+            if uid in self.followers_list:
                 count += 1
         return count
 # ----------------------------------------------------------------------------
@@ -206,18 +209,22 @@ class Followers(object):
         return False
 
     def clear_cache(self):
-        pass
+        flist = self.list_cache()
+        for file in flist:
+            os.remove(file)
 
-    def read_cache(self):
-        pass
+    def read_json(self, fname):
+        with open(fname) as json_data:
+            d = json.load(json_data)
+            return d
 
     def save_json(self, data):
-        fname = os.path.join(Followers.CACHE_DIR, '_'.join([self.uid, 'followers']))
+        fname = os.path.join(Followers.CACHE_DIR, '_'.join([str(self.uid), 'followers']))
         with open(fname, 'w') as f:
             f.write(json.dumps(data, indent=4))
 
     def __repr__(self):
-        _msg = "Follower: {} id: {}".format(self.screen_name, id(__class__))
+        _msg = "Follower: {}".format(self.screen_name)
         return _msg
 
 

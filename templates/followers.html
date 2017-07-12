@@ -8,12 +8,17 @@
 
     <div class="container">
         <h1>List of the second line followers of {{ user }}</h1>
+        
+        {% if json %}
+            <h3>View as <a href="{{ url_for('json') }}">JSON data</a></h3>    
+        {% endif %}
+
         {% if followers %}
-            {% for key, val in followers.items() %}
+            {% for user in followers %}
                 <ul class="list-group">
                     <li class="list-group-item justify-content-between">
-                        <h5>{{ key }}</h5>
-                        <span class="badge badge-primary badge-pill">{{ val|length  }}</span>
+                        <h5>{{ user['name'] }}</h5>
+                        <span class="badge badge-primary badge-pill">{{ user['follows']  }}</span>
                     </li>
                 </ul>
             {% endfor %}

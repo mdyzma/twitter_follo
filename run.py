@@ -7,10 +7,12 @@
 from __future__ import absolute_import
 import os
 import json
+import os.path
+from glob import glob
 # -----------------------------------------------------------------------------
 # Related Library Imports
 # -----------------------------------------------------------------------------
-from flask import Flask, g, redirect, session, url_for, render_template, flash, request
+from flask import Flask, g, redirect, session, url_for, render_template, flash, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import (LoginManager, UserMixin, login_user, logout_user,
                          current_user, login_required)
@@ -64,8 +66,7 @@ class User(UserMixin, db.Model):
     social_id = db.Column(db.String(64), nullable=False, unique=True)
     nickname = db.Column(db.String(64), nullable=False)
     fcount = db.Column(db.Integer, nullable=True)
-    oauth_token = db.Column(db.String(200), nullable=True)
-    oauth_secret = db.Column(db.String(200), nullable=True)
+    # json = db.Column(db.(200), nullable=True)
 
 # TODO Move data to MONGO
 
@@ -153,8 +154,7 @@ def oauth_authorized():
     # Check if user is in db
     user = User.query.filter_by(social_id=social_id).first()
     if not user:
-        user = User(social_id=social_id, nickname=username, fcount=followers_count,
-                    oauth_token=resp['oauth_token'], oauth_secret=resp['oauth_token_secret'])
+        user = User(social_id=social_id, nickname=username, fcount=followers_count,)
         db.session.add(user)
         db.session.commit()
     login_user(user, True)
@@ -168,20 +168,26 @@ def followers():
     user_name = session['twitter_user']
 
     # Obtain verified user data
+    _followers_obj = Followers(auth_user=session['oauth_user'], service=twitter)
+    followers_dict = _followers_obj.get_second_followers()
+    _followers_obj.save_json(followers_dict)
 
-    _followers = twitter.get('followers/ids.json',
-                             data={'cursor': -1, 'screen_name': user_name, 'count': 5000}).data
+    app.logger.debug("Data processed")
+    return render_template('followers.html', followers=followers_dict, user=user_name)
 
-    print(_followers.get("ids"))
 
-    my_followers = Followers(session['oauth_user'], twitter)
-
-    data = user_followers.get_second_followers()
-
-    my_followers.save_json(data)
-
-    return render_template('followers.html', followers=data, user=user_name)
-
+@app.route('/followers/followes/json')
+def json():
+    cache = os.path.abspath('.cache')
+    fspec = os.path.join(cache, '*.json')
+    cache_file_list = [i for i in glob(fspec)]
+    for item in cache_file_list:
+        if session['oauth_user'].get('id') in item:
+            
+            with open(item) as data_file:    
+                data = json.load(data_file)
+    app.logger.debug("JSON data display.")
+    return jsonify(data)
 
 if __name__ == '__main__':
     db.create_all()
