@@ -6,7 +6,7 @@
 
 A Python app, which can display followers of the followers of account authorized via Twitter. Can be deployed to Heroku.
 
-Application havily inspired by [Miguel's Grinberg Flask oAuth tutorial](https://blog.miguelgrinberg.com/post/oauth-authentication-with-flask). UI based on MDB Free and EBM Bootstrap Plugin, available under MIT License and provided by [MDBoostrap.com](https://mdbootstrap.com).
+Application inspiredUI based on MDB Free and EBM Bootstrap Plugin, available under MIT License and provided by [MDBoostrap.com](https://mdbootstrap.com).
 
 ## Usage
 
