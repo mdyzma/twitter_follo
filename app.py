@@ -17,7 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import (LoginManager, UserMixin, login_user, logout_user,
                          current_user, login_required)
 from flask_oauthlib.client import OAuth
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 # -----------------------------------------------------------------------------
 # Local Library Imports
 # -----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 db = SQLAlchemy(app)
 lm = LoginManager(app)
 lm.login_view = 'index'
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 oauth = OAuth(app)
 
 
