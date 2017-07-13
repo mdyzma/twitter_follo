@@ -13,11 +13,11 @@ from glob import glob
 # Related Library Imports
 # -----------------------------------------------------------------------------
 from flask import Flask, g, redirect, session, url_for, render_template, flash, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 from flask_login import (LoginManager, UserMixin, login_user, logout_user,
                          current_user, login_required)
 from flask_oauthlib.client import OAuth
-# from flask_debugtoolbar import DebugToolbarExtension
+from flask_debugtoolbar import DebugToolbarExtension
 # -----------------------------------------------------------------------------
 # Local Library Imports
 # -----------------------------------------------------------------------------
@@ -43,37 +43,35 @@ finally:
     access_token = os.environ["ACCESS_TOKEN"]
     access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
+# Our mock database.
+users = {12545: {'pw': 'secret'}}
 
 app = Flask(__name__)
-app.debug = False
+app.debug = True
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite')
 
 # ----------------------------------------------------------------------------
 # Setting flask app with user and 3 leg authorization
 # ----------------------------------------------------------------------------
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 lm = LoginManager(app)
 lm.login_view = 'index'
-# toolbar = DebugToolbarExtension(app)
+toolbar = DebugToolbarExtension(app)
 oauth = OAuth(app)
 
 
 # Database User model 
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    social_id = db.Column(db.String(64), nullable=False, unique=True)
-    nickname = db.Column(db.String(64), nullable=False)
-    fcount = db.Column(db.Integer, nullable=True)
-    # json = db.Column(db.(200), nullable=True)
-
+class User(UserMixin):
+    pass
 # TODO Move data to MONGO
 
 
 @lm.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+def load_user(uid):
+    user = User()
+    user.id = uid
+    return user
 
 # ----------------------------------------------------------------------------
 #  Oauth init
@@ -151,13 +149,10 @@ def oauth_authorized():
     username = auth_user.data.get('screen_name')
     followers_count = auth_user.data.get('followers_count')
 
-    # Check if user is in db
-    user = User.query.filter_by(social_id=social_id).first()
-    if not user:
-        user = User(social_id=social_id, nickname=username, fcount=followers_count,)
-        db.session.add(user)
-        db.session.commit()
-    # login_user(user, True)
+    user = User()
+    user.id = social_id
+
+    login_user(user, True)
     return redirect(url_for('followers'))
 
 
@@ -195,8 +190,8 @@ def json():
     #     data = json.load(data_file)
     # app.logger.debug("JSON data display.")
     data = session['json_data']
-    return jsonify(**data)
+    return jsonify(*data)
 
 if __name__ == '__main__':
-    db.create_all()
+    # db.create_all()
     app.run()
