@@ -17,7 +17,7 @@ from flask import Flask, g, redirect, session, url_for, render_template, flash, 
 from flask_login import (LoginManager, UserMixin, login_user, logout_user,
                          current_user, login_required)
 from flask_oauthlib.client import OAuth
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 # -----------------------------------------------------------------------------
 # Local Library Imports
 # -----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ finally:
 users = {12545: {'pw': 'secret'}}
 
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite')
 
@@ -57,7 +57,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:/
 # db = SQLAlchemy(app)
 lm = LoginManager(app)
 lm.login_view = 'index'
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 oauth = OAuth(app)
 
 
