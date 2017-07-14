@@ -19,6 +19,11 @@ Application inspiredUI based on MDB Free and EBM Bootstrap Plugin, available und
 
 ![followers][followers]
 
+Data are also accssible in JSON format:
+
+![followers_json][followers_json]
+
+
 
 ## Deploying to Heroku
 
@@ -70,3 +75,4 @@ For more information, i.e. about app further development, see the documentation 
 
 [start]:     static/img/screen-start.png
 [followers]: static/img/screen-followers.png
+[followers_json]: static/img/screen-followers-json.png
