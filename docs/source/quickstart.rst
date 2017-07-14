@@ -19,6 +19,10 @@ Usage
 
 .. image:: _static/img/screen-followers.png
 
+4. Data are also accessible in JSON format:
+
+.. image:: _static/img/screen-followers-json.png
+
 
 Deploying to Heroku
 -------------------

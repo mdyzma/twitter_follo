@@ -91,25 +91,3 @@ At least slightly documented
 Version controlled 
 
 One thing you might find troublesome is Twitter limiting API requests rate. This is part of the task, to decide what to do in such situation. Feel free to think through different solutions, but pick and implement only one (we will discuss them though).
-
-
-Database
---------
-
-Data are stored in sqlite file.
-
-
-def _print_report(user_obj, followers_list):
-    print("Name: {}".format(user_obj.name))
-    print("Screen Name: {}".format("".join(["@", user_obj.screen_name])))
-    print("Created at: {}".format(user_obj.created_at.isoformat()))
-    print()
-    print("Followers:")
-    print("-"*60)
-    print("{:20}{:20}{:>20}".format("id", "@handle", "# of followers"))
-    print("-"*60)
-    for follower in followers_list:
-        print("{:20}{:20}{:20}".format(follower.id_str, "".join(["@", follower.screen_name]),
-               follower.followers_count))
-    print("-"*60)
-    print("\n\n")
