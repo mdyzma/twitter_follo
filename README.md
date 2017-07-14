@@ -4,7 +4,7 @@
 [![Documentation Status](https://readthedocs.org/projects/twitter-follo/badge/?version=latest)](http://twitter-follo.readthedocs.io/en/latest/?badge=latest)
 
 
-A Python app, which can display followers of the followers of account authorized via Twitter. Can be deployed to Heroku.
+A Python app, which can displays followers of the followers of account authorized via Twitter. Can be deployed to Heroku.
 
 Application inspiredUI based on MDB Free and EBM Bootstrap Plugin, available under MIT License and provided by [MDBoostrap.com](https://mdbootstrap.com).
 

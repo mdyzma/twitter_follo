@@ -3,7 +3,7 @@
 Quickstart
 ==========
 
-A Python app, which display followers of the followers of your Twitter account. Can be deployed to Heroku. 
+A Python app, which displays followers of the followers of your Twitter account. Can be deployed to Heroku. 
 
 Application UI based on MDB Free and EBM Bootstrap Plugin, available under MIT License and provided by `MDBoostrap.com <https://mdbootstrap.com>`_.
 
