@@ -65,7 +65,7 @@
             {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <div class="btn-group">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ current_user.nickname }}</button>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user }}</button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
                         </div>
