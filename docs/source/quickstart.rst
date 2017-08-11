@@ -73,7 +73,7 @@ For more information, i.e. about app further development used approaches, see pr
 .. _HerokuCLI: https://toolbelt.heroku.com
 .. _documentation: http://twitter-follo.readthedocs.io/en/latest/?badge=latest
 .. _twitter_dev: https://iag.me/socialmedia/how-to-create-a-twitter-app-in-8-easy-steps/
-.. _heroku_app: https://fast-forest-95874.herokuapp.com
+.. _heroku_app: https://twitter-followers-prod.herokuapp.com
 
 .. |Deploy| image:: https://www.herokucdn.com/deploy/button.png
     :target: https://heroku.com/deploy
