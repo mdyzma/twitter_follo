@@ -12,7 +12,7 @@ Application inspiredUI based on MDB Free and EBM Bootstrap Plugin, available und
 
 1. Visit [web site](https://twitter-followers-prod.herokuapp.com)
 
-![start][start]
+[![start]][start](https://twitter-followers-prod.herokuapp.com)
 
 2. Sign in with your Twitter account
 3. Browse list of followers who follow followers :)
