@@ -13,5 +13,5 @@ deploy:
   api_key:
     secure: "1ca79ad3-5429-44ae-b174-72d5fc6ea08e"
 
-  app: fast-forest-95874
+  app: twitter-followers-prod
 
