@@ -10,6 +10,11 @@ Application inspiredUI based on MDB Free and EBM Bootstrap Plugin, available und
 
 ## Usage
 
+***
+PLEASE NOTE!
+Twitter access credentials to this app were revoked. This app is unable to connect to the Twitter API anymore. Its Heroku instance still displays home page.
+***
+
 1. Visit [web site](https://twitter-followers-prod.herokuapp.com)
 
 [![start]][start](https://twitter-followers-prod.herokuapp.com)
