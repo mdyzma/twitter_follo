@@ -4,7 +4,7 @@
 # Development environment
 Flask-DebugToolbar==0.10.1
 six==1.10.0
-requests==2.18.1
+requests==2.20.0
 
 # testing packages
 pytest==3.1.2
