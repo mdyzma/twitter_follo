@@ -11,7 +11,7 @@ script: python -m pytest
 deploy:
   provider: heroku
   api_key:
-    secure: "1ca79ad3-5429-44ae-b174-72d5fc6ea08e"
+    secure: "m3c44CFJawRkaWL2gbUKqw"
 
   app: twitter-followers-prod
 
