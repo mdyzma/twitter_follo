@@ -4,5 +4,5 @@ Flask==1.0
 Flask-Login==0.4.0
 Flask-SQLAlchemy==2.2
 Flask-OAuthlib==0.9.4
-python-dotenv==0.6.4
+python-dotenv==1.2.2
 
